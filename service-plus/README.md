@@ -491,19 +491,20 @@ Demo will be added soon.
 ## 14. Screenshots
 
 ### Home
-![Home](screenshots/Home.jpeg)
+<img src="screenshots/Home.jpeg" width="600"/>
 
 ### Service Details
-![Service Details](screenshots/service%20request%20creation.jpeg)
+<img src="screenshots/service%20request%20creation.jpeg" width="600"/>
 
 ### Chat
-![Chat](screenshots/Chat%20conversation%20list.jpeg)
+<img src="screenshots/Chat%20conversation%20list.jpeg" width="600"/>
 
 ### Requests
-![Requests](screenshots/My%20requests%20screen.jpeg)
+<img src="screenshots/My%20requests%20screen.jpeg" width="600"/>
 
 ### Profile
-![Profile](screenshots/Profile%20settings%20screen.jpeg)
+<img src="screenshots/Profile%20settings%20screen.jpeg" width="600"/>
+
 
 For a full view of all application screens including dark mode and calling states, please visit the [Screenshots Gallery](./screenshots/README.md).
 
