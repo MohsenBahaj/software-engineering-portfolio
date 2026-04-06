@@ -485,8 +485,7 @@ The resulting structure is suitable for continued growth into a larger productio
 See [External Links](./links.md)
 
 ## 13. Demo
-
-Demo will be added soon.
+See full demo videos: [View Demo](./demo/README.md)
 
 ## 14. Screenshots
 
