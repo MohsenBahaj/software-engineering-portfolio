@@ -1,4 +1,4 @@
-# Civil Service / Service Plus
+# Service Plus App
 
 ## Table of Contents
 
