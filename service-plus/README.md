@@ -1,5 +1,25 @@
 # Civil Service / Service Plus
 
+## Table of Contents
+
+- [Project Overview](#1-project-overview)
+- [My Role](#my-role)
+- [Key Features](#2-key-features)
+- [Tech Stack](#3-tech-stack)
+- [Architecture](#4-architecture)
+- [Core Functional Flows](#5-core-functional-flows)
+- [State Management](#6-state-management-approach)
+- [API Integration](#7-api-integration)
+- [Performance Considerations](#8-performance-considerations)
+- [Challenges & Solutions](#9-challenges--solutions)
+- [Security Considerations](#10-security-considerations)
+- [Scalability & Maintainability](#11-scalability--maintainability)
+- [External Links](#12-external-links)
+- [Demo](#13-demo)
+- [Screenshots](#14-screenshots)
+- [Disclaimer](#15-disclaimer)
+
+
 ## 1. Project Overview
 
 This project is a cross-platform Flutter mobile application that I engineered as a unified client experience for digital civil-service interactions. It enables users to discover public services, submit service requests, track request progress, communicate with assigned staff, and manage their profiles within a single mobile platform.
