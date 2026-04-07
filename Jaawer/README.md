@@ -1,153 +1,305 @@
-## Mataf Technical Case Study
+# Jaawer App
 
-Branch analyzed: `mataf`
+## Table of Contents
 
-### 1. Project Overview
+- [Project Overview](#1-project-overview)
+- [My Role](#2-my-role)
+- [Key Features](#3-key-features)
+- [Tech Stack](#4-tech-stack)
+- [Architecture](#5-architecture)
+- [Core Functional Flows](#6-core-functional-flows)
+- [State Management](#7-state-management)
+- [API Integration](#8-api-integration)
+- [Performance Considerations](#9-performance-considerations)
+- [Challenges & Solutions](#10-challenges--solutions)
+- [Security Considerations](#11-security-considerations)
+- [Scalability & Maintainability](#12-scalability--maintainability)
+- [External Links](#13-external-links)
+- [Demo](#14-demo)
+- [Screenshots](#15-screenshots)
+- [Disclaimer](#16-disclaimer)
 
-Mataf is a production Flutter mobile application derived from the same core platform as UmrahGo, but positioned as a distinct product with separate branding, backend domain, package identifiers, and a materially redesigned consumer experience. It focuses on a more curated package-discovery journey while preserving the underlying booking, authentication, profile, chat, and provider-support foundations.
 
-I owned the product-level mobile engineering required to turn the shared platform base into a separate deployable app. That included branch-specific backend separation, app identity separation, full UI/UX redesign of the consumer experience, updated navigation and discovery architecture, continued booking/payment support, and independent production delivery as a standalone app on iOS and Android.
+# 1. Project Overview
 
-## My Role
+`Jaawer` is a production-oriented Flutter mobile application focused on roommate discovery, profile matching, and direct communication between users. The app supports the full lifecycle from onboarding and phone-based account verification to profile completion, roommate browsing, advanced filtering, subscription-gated messaging, realtime chat, moderation workflows, and account management.
 
-I led the engineering work that transformed the shared platform into Mataf as a separate product. I implemented the branch-based product evolution from UmrahGo into a distinct application with its own backend domain, package identifiers, branding, navigation behavior, release configuration, and store-facing deployment identity.
+The `bug-fix` branch reflects a stabilized version of the product with practical improvements around authentication flow, realtime messaging, unread state handling, profile completion, subscription verification, complaint management, and platform integrations for Android and iOS.
 
-I designed and implemented the full UI/UX redesign on top of the existing platform foundation. That included restructuring the home experience around curated offers, most requested packages, featured content, redesigned package cards, shimmer-based loading states, updated bottom navigation behavior, and a more product-driven discovery flow.
+# 2. My Role
 
-I also preserved and re-integrated the core business system inside the redesigned product: authentication, OTP verification, booking creation, coupon handling, payment continuation, profile flows, notifications, chat, office-related package enrichment, and app update handling. My ownership covered both the product redesign and the engineering continuity required to keep Mataf production-ready as its own app.
+I designed and implemented the client-side architecture of the mobile application using Flutter with a clear separation between presentation, state, repository, and model layers.
 
-### 2. Key Features
+I built the feature flows end to end, including authentication, OTP verification, complete-profile onboarding, roommate discovery, profile viewing, realtime chat, subscription handling, complaint reporting, support access, and account deletion.
 
-- Email/password, OTP, password reset, and Google sign-in authentication
-- Curated home experience with offers, most requested packages, and featured packages
-- Package detail flow enriched with related office packages and office offers
-- Package booking with passenger forms, accommodation selection, coupon support, and hosted payment continuation
-- Notifications, chat, profile management, documents, and language handling
-- Provider/office package and hotel support still present in the branch
-- Change-password support added in the auth layer
+I integrated the application with backend REST APIs and realtime socket events, implemented secure session persistence, handled multipart profile updates with images and structured payloads, and connected Firebase services for phone verification and push messaging.
 
-I implemented these features within a redesigned product surface, ensuring Mataf felt like a separate app rather than a themed fork. The engineering work combined UI/UX redesign with preserved business continuity across booking, auth, and support flows.
+I owned state management across the app using GetX controllers and reactive observables, including loading states, navigation, unread badge synchronization, filter state, and subscription state.
 
-### 3. Tech Stack
+I handled production-facing mobile concerns such as Firebase initialization, push notification lifecycle, in-app purchase flows, app version checks, secure token storage, Android signing configuration, iOS entitlements/permissions, and bilingual localization support.
 
-- Flutter with Dart
-- GetX for state, routing, bindings, and dependency management
-- Dio and `http` for networking
-- Firebase Core, Firebase Messaging, Firebase Auth, Google Sign-In
-- Google Maps Flutter for location-linked package/hotel/profile experiences
-- WebView for payment continuation
-- Shared Preferences for persisted auth/account state
-- Cached network image and shimmer-based loading states
-- New Version Plus for store-update prompting
+I also worked on performance and resilience by reducing duplicate conversation entries, preserving tab state, optimizing refresh behavior, supporting pagination, and adding reconnection-aware realtime behavior for messaging.
 
-I kept the shared core technology strategy where it served reuse, and I extended the product-specific UI layer where Mataf needed its own experience. This allowed me to deliver a separate production app without duplicating the entire platform stack.
+# 3. Key Features
 
-### 4. Architecture
+- Phone-based registration and login with Firebase-backed OTP verification.
+- Secure session persistence using device secure storage.
+- First-launch onboarding flow with localized welcome screens.
+- Complete-profile workflow with demographic, lifestyle, location, and roommate-preference data.
+- Map-based location selection with support for direct Google Maps URL parsing.
+- Roommate discovery feed with search, filtering, ranking, and compatibility percentage display.
+- Detailed roommate profiles with personal info, lifestyle, preferences, property details, images, and location preview.
+- Realtime one-to-one chat with unread badges, typing indicators, edit/delete message support, and read-state updates.
+- Subscription-based messaging access using in-app purchases and backend purchase verification.
+- Push notification infrastructure for chat and background messaging scenarios.
+- Complaint submission, complaint tracking, complaint cancellation, and user support access.
+- Language switching between Arabic and English with persisted locale.
+- Account logout and guided account deletion flow with reason capture and user acknowledgements.
+- Store version check flow to prompt users when a newer mobile release is available.
 
-Mataf keeps the same broad layered foundation, but the branch shows stronger product shaping in the presentation layer:
+# 4. Tech Stack
 
-- Shared service/model/core architecture remains intact
-- Consumer home flow is redesigned into dedicated sections and specialized controllers
-- Offer handling is elevated into first-class discovery logic
-- Package detail flow is expanded to include same-office package context and office offers
-- Navigation and bottom-bar presentation are updated for a more premium branded UX
+- Flutter
+- Dart
+- GetX for state management, navigation, and dependency access
+- Dio for REST networking and multipart requests
+- Firebase Core
+- Firebase Auth for phone verification
+- Firebase Messaging for push notifications
+- Flutter Local Notifications for local notification presentation
+- `socket_io_client` for realtime chat events
+- `flutter_secure_storage` for token and user-session persistence
+- `in_app_purchase` and StoreKit support for subscription purchases
+- Google Maps Flutter for map rendering
+- Geolocator and Permission Handler for location access
+- Image Picker for profile and place image uploads
+- Cached Network Image for remote image rendering and caching
+- `new_version_plus` for app update checks
+- Android Gradle + iOS native configuration for platform delivery
 
-I designed this branch as a product-specific evolution of the shared platform, not just a visual variation. This is important technically: Mataf is not only a theme fork. It is a branch-level product variation with its own API host, app identifiers, navigation behavior, and content model emphasis. I implemented that separation directly through branch-specific API/domain configuration, package IDs, version-check targets, route behavior, and redesigned presentation modules.
+# 5. Architecture
 
-### 5. Core Functional Flows
+The branch follows a layered Flutter architecture with strong domain separation:
 
-- Authentication flow: login/signup -> OTP handling -> profile/bootstrap -> notification token registration -> main app entry
-- Discovery flow: browse offer carousel -> browse most requested/featured sections -> open section-specific list -> inspect package details
-- Package detail flow: load package by ID -> fetch same-office related packages -> fetch office offers -> continue to booking
-- Booking flow: collect pilgrim/passenger details -> validate coupon -> choose cash or electronic payment -> create booking -> confirmation/payment continuation
-- Payment flow: create hosted payment session against Mataf backend -> open checkout WebView -> poll payment result -> finalize booking state
-- Support flow: notifications, chat home, direct chat, profile/document management
+- `view/`: UI screens and widgets for auth, home, chat, profile, and settings.
+- `viewmodel/`: GetX controllers that own screen state, validation, user actions, async workflows, and navigation.
+- `data/repository/`: API-facing services for auth, chat, settings, subscriptions, roommates, and maps.
+- `data/models/`: typed request/response/domain models for users, profiles, chats, subscriptions, complaints, and roommates.
+- `auth/`: secure local session and preference storage.
+- Cross-cutting services: notifications, websocket lifecycle, version checking, translations, and routing.
 
-I implemented these flows so the redesigned discovery and branded UI remained fully connected to the underlying booking system. My role here included preserving business-critical flows while restructuring how users discover, evaluate, and move through packages inside Mataf.
+This structure keeps the UI lightweight while concentrating business logic inside controllers and integration logic inside repositories.
 
-### 6. State Management
+# 6. Core Functional Flows
 
-GetX remains the state backbone, but this branch uses it in a more product-specific way:
+## Authentication and Onboarding
 
-- Dedicated controllers for home sections and detail enrichment
-- Reactive loading/error states for offers, featured content, most-requested content, and offline handling
-- Shared preferences retain auth and account metadata
-- Main navigation state coordinates section-aware discovery rather than only simple tab switching
+Users land in a splash bootstrap that initializes Firebase, notifications, locale, and auth state. If a session exists, the app routes directly into the authenticated experience. If not, the app distinguishes between first launch and returning logged-out users to decide between welcome onboarding and login.
 
-I implemented this state structure to support the redesigned consumer journey. The goal was not only to manage data loading, but also to express product intent: curated entry points, content-specific loading states, offline retry behavior, and tighter coordination between navigation and discovery sections.
+Registration is a two-step flow:
 
-### 7. API Integration
+- submit account data to backend
+- verify phone ownership through Firebase OTP
+- exchange verified identity for backend JWT
+- persist token and session data locally
 
-Mataf is connected to its own production backend domain and app identity, separate from UmrahGo:
+Password reset is handled through a dedicated OTP-based reset flow.
 
-- Distinct API base URL for auth, packages, offers, office details, bookings, and payments
-- Offers endpoint is directly integrated into the home experience
-- Public office packages and office offers are fetched to enrich package detail pages
-- Booking and payment flows are preserved but repointed to Mataf infrastructure
-- Change-password support exists as a dedicated authenticated API action
+## Profile Completion and Editing
 
-I implemented this integration through explicit environment and product separation. I repointed auth, package, offer, office-detail, booking, payment, and update-related mobile logic to Mataf infrastructure while keeping the app behavior coherent. From an engineering perspective, the key decision was clean environment separation while reusing a stable platform core.
+After authentication, users complete a rich profile including age, nationality, city, preferred city, profession, lifestyle attributes, hobbies, personality traits, preferred neighborhoods, and roommate/place preferences.
 
-### 8. Performance Considerations
+If a user has a place to offer, the flow also captures:
 
-- Cached images are used aggressively in the redesigned discovery experience
-- Skeleton/shimmer loading improves perceived performance during package/offer fetches
-- The home screen is split into focused sections instead of one overloaded listing
-- Refresh and offline retry patterns are built into the consumer home experience
-- PageView-based offer presentation reduces initial content clutter while keeping curated discovery prominent
+- occupancy details
+- price per person
+- property description
+- place photos
+- place coordinates
 
-I made these changes as product and engineering decisions together. I optimized Mataf around perceived speed, clearer content hierarchy, and reduced cognitive load, especially on the landing experience where curated offers and premium package presentation drive first impressions.
+Profile updates are sent as multipart form data, allowing structured JSON fields and image uploads in one request.
 
-### 9. Challenges & Solutions
+## Roommate Discovery
 
-- Shared-core, separate-product challenge: solved by branch isolation, separate backend domain, and separate app IDs
-- Redesign without rewriting the platform: solved by reusing services/models while rebuilding the presentation layer around offers and curated sections
-- Discovery clarity: solved by replacing a flatter browsing experience with offers, most-requested, and featured entry points
-- Detail-page depth: solved by joining package details with related office packages and office offers
-- Brand differentiation: solved through UI/navigation restructuring rather than only asset swaps
+Users browse a roommate feed populated from the backend. Discovery supports:
 
-I solved the hardest Mataf challenge by treating it as product engineering, not simple re-skinning. I preserved platform reuse where it created leverage, and I rebuilt the user-facing experience where the product needed separation. That made Mataf a true branch-based product evolution and an independently deployable app, not just a derivative UI layer.
+- text search
+- city and preferred-city filtering
+- profession filtering
+- nationality filtering
+- age range filtering
+- room-intent matching
+- result scoring and prioritization
 
-### 10. Security Considerations
+Each result exposes a compatibility percentage and a concise summary of the roommate’s housing situation.
 
-- Authenticated requests rely on bearer-token handling and persisted session state
-- OTP and password recovery remain part of the access-control model
-- FCM registration is tied to authenticated flow
-- Change-password support strengthens account-management coverage
-- Public recruiter documentation should avoid secrets, keystore details, tokens, and any environment-sensitive material
-- As with any production mobile client, debug-only network relaxations should not be described as production security posture
+## Messaging and Realtime Chat
 
-I integrated these security-relevant responsibilities into the app’s main flows and maintained them while separating Mataf from UmrahGo at the product level. That ensured the redesign did not compromise identity, session, notification, or recovery behavior.
+Users can open a roommate profile and attempt to start a chat. Before entering chat, the app checks subscription/conversation rules. If permitted, it either opens an existing conversation or creates one on first message.
 
-### 11. Scalability & Maintainability
+Chat supports:
 
-- Shared-core architecture keeps platform cost under control while allowing brand/product divergence
-- Branch-specific presentation logic means Mataf can continue evolving independently without destabilizing UmrahGo
-- Offer modeling and related-package enrichment make content-driven growth easier
-- Service isolation still supports future backend expansion without large controller rewrites
-- This branch demonstrates a scalable product-family strategy: one strong core, multiple deployable branded apps
+- conversation list retrieval
+- message history retrieval
+- send text/media messages
+- edit messages
+- delete messages
+- mark messages as read
+- typing indicators
+- realtime message delivery via websocket
+- unread badge synchronization in bottom navigation
 
-I designed Mataf’s maintainability around controlled product divergence. The shared foundation reduces duplication, while branch-specific presentation, environment configuration, and feature shaping let Mataf continue evolving independently. This is the core engineering strategy that made separate deployment practical.
+## Subscription Flow
 
-### 12. Screenshots / Demo Notes
+The app loads product metadata from the store, initiates a purchase, listens to purchase updates, verifies completed purchases against the backend, refreshes subscription state, and restores past purchases when needed.
 
-Recommended demo path for recruiters:
+## Moderation and Settings
 
-- Splash -> login/signup -> curated home -> offers carousel -> package details -> booking -> notifications/chat -> profile
-- Secondary demo: office-related package context from the package detail page
+Users can:
 
-Suggested screenshots:
+- change language
+- access premium plans
+- open payment guidance
+- contact support
+- view complaints
+- cancel pending complaints
+- log out
+- submit account deletion with an explicit reason
 
-- Home with offers/featured sections
-- Offer card or curated discovery section
-- Package details
-- Booking flow
-- Profile or chat screen
+# 7. State Management
 
-These screens show my strongest engineering ownership in Mataf: full UI/UX redesign, product-level separation, curated discovery architecture, and preservation of the production booking system inside a newly branded standalone app.
+State management is implemented with GetX using `GetxController`, `Rx` observables, and `Obx` reactive widgets.
 
-### 13. Disclaimer
+Key patterns in this branch:
 
-This documentation is based strictly on the `mataf` branch and treats Mataf as an independent production app. It intentionally avoids source code, secrets, and cross-branch assumptions. For public GitHub usage, pair this write-up with Mataf-specific screenshots and sanitized release metadata.
+- controller-owned form state and validation
+- reactive loading and error states for network calls
+- shared navigation/state through Get routing
+- realtime unread badge propagation from chat controllers to the main tab shell
+- observable filter state for roommate discovery
+- reactive subscription purchase lifecycle handling
+- explicit refresh methods for conversations and messages
 
-If you want, I can do one more pass to make both case studies read like polished portfolio documentation, with stronger recruiter-friendly phrasing and cleaner markdown formatting for direct GitHub publishing.
+This approach keeps feature logic centralized and minimizes widget-level state complexity.
+
+# 8. API Integration
+
+The mobile client integrates with domain-specific backend endpoints through dedicated repositories:
+
+- Auth repository: registration, verification, login, password reset, profile fetch/update
+- Roommate repository: roommate listing retrieval
+- Chat repository: conversation lookup, conversation list, message send/edit/delete, read-state updates, subscription/conversation eligibility checks
+- Settings repository: complaint creation/cancellation/listing and account deletion
+- Subscription repository: backend purchase verification
+- Maps repository: location resolution and Google Maps URL parsing support
+
+The networking layer uses request timeouts, authorization headers from secure storage, multipart form submissions for profile data, and model parsing for structured responses.
+
+# 9. Performance Considerations
+
+- `IndexedStack` is used for the main tab shell so tab state is preserved instead of rebuilt on every navigation change.
+- Chat conversation loading includes pagination controls and duplicate-prevention logic.
+- Conversation refresh replaces or updates existing entries instead of blindly appending duplicates.
+- Cached image loading reduces repeated network fetches for profile/place images.
+- Realtime websocket updates reduce the need for constant polling.
+- Filter logic runs client-side on fetched roommate data to keep interactions responsive.
+- Scroll handling and post-frame updates improve chat UX after message send/receive.
+- Notification suppression in foreground avoids redundant user interruption while the active UI is already visible.
+
+# 10. Challenges & Solutions
+
+## Realtime unread-state consistency
+
+I solved unread badge drift by combining API-derived unread counts, websocket event listeners, direct tab-badge synchronization, and explicit read-state updates when conversations are opened.
+
+## Chat duplication and refresh accuracy
+
+I prevented duplicate conversations by checking IDs before insertion and replacing stale conversation entries with fresher payloads during refresh and pagination.
+
+## Complex profile submission
+
+I built a multipart profile update pipeline that supports mixed primitive values, JSON-encoded preference arrays, optional place-listing metadata, image uploads, and deleted-image tracking in a single update request.
+
+## Cross-platform subscription handling
+
+I implemented a purchase listener pipeline that handles product loading, purchase initiation, verification, restore flows, timeout protection, platform differences, and backend activation checks.
+
+## Location usability
+
+I improved location capture by supporting both direct map interaction and Google Maps URL parsing, which reduces friction for users who already have a shareable maps link.
+
+## Auth bootstrap and first-run experience
+
+I structured startup to distinguish between first launch, returning logged-out users, and authenticated users, which keeps onboarding, login, and profile completion behavior deterministic.
+
+# 11. Security Considerations
+
+- Auth tokens and sensitive session data are persisted using secure device storage rather than plain local storage.
+- Backend API requests use bearer-token authorization.
+- Account verification relies on Firebase phone authentication before backend token issuance.
+- Account deletion requires explicit user acknowledgement and a deletion reason.
+- Push token registration is authenticated before being sent to the backend.
+- Profile and chat capabilities are scoped to authenticated sessions.
+
+Security hardening opportunities visible in this branch:
+
+- move third-party API secrets and environment-specific configuration out of client source and into a safer configuration strategy
+- expand automated validation around edge-case authorization failures
+- add stronger automated test coverage for auth, profile submission, and purchase verification paths
+
+# 12. Scalability & Maintainability
+
+The codebase is structured to scale feature development without collapsing into screen-level monoliths.
+
+Maintainability strengths:
+
+- feature/domain separation across views, controllers, repositories, and models
+- reusable repositories for backend communication
+- typed models for payload parsing
+- localized strings centralized in a translation layer
+- platform integrations isolated into service classes
+- modular controllers for auth, chat, profile, roommate discovery, and subscriptions
+
+Scalability strengths:
+
+- conversation pagination already exists
+- realtime transport is centralized in a singleton websocket service
+- subscription logic is isolated from UI rendering
+- profile payload construction is encapsulated in a dedicated model
+- bilingual support is built into app bootstrap and persisted per user device state
+
+Current engineering gap:
+
+- automated testing is minimal in this branch, so future scaling would benefit from targeted unit, widget, and integration coverage around the critical production flows.
+
+## 13. External Links
+
+See [External Links](./links.md)
+
+## 14. Demo
+
+See full demo videos: [View Demo](./demo/README.md)
+
+## 15. Screenshots
+
+### Home
+<img src="screenshots/home.jpg" width="600"/>
+
+### Roommate Details
+<img src="screenshots/roommate-details.jpg" width="600"/>
+
+### Chat
+<img src="screenshots/chat.jpg" width="600"/>
+
+### Subscriptions
+<img src="screenshots/subscriptions.jpg" width="600"/>
+
+### Profile
+<img src="screenshots/profile.jpg" width="600"/>
+
+
+For a full view of all application screens including dark mode and calling states, please visit the [Screenshots Gallery](./screenshots/README.md).
+
+## 16. Disclaimer
+
+> This project’s source code is private due to client confidentiality. Detailed code walkthrough can be provided upon request.

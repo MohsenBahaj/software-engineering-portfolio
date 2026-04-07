@@ -2,7 +2,29 @@
 
 Branch analyzed: `ios`
 
-### 1. Project Overview
+# Umrah Go App
+
+## Table of Contents
+
+- [Project Overview](#1-project-overview)
+- [My Role](#my-role)
+- [Key Features](#2-key-features)
+- [Tech Stack](#3-tech-stack)
+- [Architecture](#4-architecture)
+- [Core Functional Flows](#5-core-functional-flows)
+- [State Management](#6-state-management)
+- [API Integration](#7-api-integration)
+- [Performance Considerations](#8-performance-considerations)
+- [Challenges & Solutions](#9-challenges--solutions)
+- [Security Considerations](#10-security-considerations)
+- [Scalability & Maintainability](#11-scalability--maintainability)
+- [External Links](#12-external-links)
+- [Demo](#13-demo)
+- [Screenshots](#14-screenshots)
+- [Disclaimer](#15-disclaimer)
+
+
+## 1. Project Overview
 
 UmrahGo is a production Flutter mobile application for the Umrah travel lifecycle. It supports consumer booking flows and provider/operator workflows in the same mobile codebase, covering package discovery, hotel and transport-related services, booking management, chat, profile/document handling, and payment orchestration.
 
@@ -16,7 +38,7 @@ I owned the API integration layer across the main business domains, including au
 
 I drove production-oriented engineering decisions around dependency organization, service isolation, state management, release configuration, and cross-platform capability integration. That ownership included Firebase setup, Google sign-in, maps/location support, local persistence, WebView-based payment continuation, app update prompting, and the overall mobile product structure needed to sustain a live deployment.
 
-### 2. Key Features
+## 2. Key Features
 
 - User authentication with email/password, OTP verification, password reset, Google sign-in, and guest access
 - Public discovery of Umrah packages, hotels, offices, and transport offerings
@@ -29,7 +51,7 @@ I drove production-oriented engineering decisions around dependency organization
 
 I implemented these features as connected production flows rather than isolated screens, ensuring that auth state, account type, API data, and user actions remained consistent from onboarding through booking completion and provider operations.
 
-### 3. Tech Stack
+## 3. Tech Stack
 
 - Flutter with Dart
 - GetX for routing, dependency injection, controller lifecycle, and state management
@@ -43,7 +65,7 @@ I implemented these features as connected production flows rather than isolated 
 
 I selected and integrated this stack to balance rapid iteration, production stability, role-based app complexity, and cross-platform delivery requirements. GetX provided a lightweight but scalable structure for routing, state, and dependency injection, while Dio and typed models supported maintainable API integration across many service domains.
 
-### 4. Architecture
+## 4. Architecture
 
 The app follows a practical layered structure:
 
@@ -55,7 +77,7 @@ The app follows a practical layered structure:
 
 I designed this architecture to keep the UI layer focused on orchestration and rendering, while business rules and backend communication stayed isolated inside service and model layers. This branch is effectively a multi-role mobile platform. One codebase serves normal users, Umrah offices, and bus operators, with account-type-driven navigation and screen availability. I implemented that multi-role structure directly in the routing, service registration, and controller boundaries.
 
-### 5. Core Functional Flows
+## 5. Core Functional Flows
 
 - Authentication flow: login/signup -> OTP verification when needed -> profile bootstrap -> FCM registration -> role-aware navigation
 - Discovery flow: browse/filter packages -> inspect package details -> review office/hotel/trip data
@@ -67,7 +89,7 @@ I designed this architecture to keep the UI layer focused on orchestration and r
 
 I implemented these flows end to end and connected them through shared auth state, controller lifecycle management, and backend services. My ownership here was not limited to UI transitions; I built the orchestration between form validation, API calls, payment state handling, profile hydration, and role-based navigation.
 
-### 6. State Management
+## 6. State Management
 
 State is managed primarily with GetX:
 
@@ -78,7 +100,7 @@ State is managed primarily with GetX:
 
 I implemented this state model to support a large feature surface without introducing heavy architectural overhead. This kept the app lightweight while still supporting many independent modules. I also used persistent session state to ensure the app could restore identity, account type, and navigation decisions reliably across launches.
 
-### 7. API Integration
+## 7. API Integration
 
 UmrahGo targets its own production backend domain and exposes a broad API surface:
 
@@ -90,7 +112,7 @@ UmrahGo targets its own production backend domain and exposes a broad API surfac
 
 I implemented this integration through service-level isolation: each domain has its own service class, which keeps the presentation layer thin and makes the app easier to evolve. I also handled token-aware requests, multipart uploads, response parsing, validation feedback, OTP flows, social login handoff, FCM token registration, and payment-session interactions as part of the production mobile layer.
 
-### 8. Performance Considerations
+## 8. Performance Considerations
 
 - Pagination is used in package and booking retrieval paths
 - Cached images reduce repeated network cost in listing/detail views
@@ -101,7 +123,7 @@ I implemented this integration through service-level isolation: each domain has 
 
 I made these decisions to keep the app responsive while supporting real-world travel content, multi-step booking flows, and repeated network interaction. I optimized the mobile side around perceived performance, controlled refresh behavior, and reduced unnecessary reloads across commonly visited screens.
 
-### 9. Challenges & Solutions
+## 9. Challenges & Solutions
 
 - Multi-role complexity: solved through account-type-based navigation and service segmentation
 - Large feature surface in one app: solved with modular folder/service organization
@@ -112,7 +134,7 @@ I made these decisions to keep the app responsive while supporting real-world tr
 
 I solved these challenges by structuring the app as a unified platform with clearly separated responsibilities. I made the core decisions around how to keep one app usable for multiple roles, how to make booking state reliable, and how to integrate operational features such as chat, notifications, and provider management without destabilizing the consumer experience.
 
-### 10. Security Considerations
+## 10. Security Considerations
 
 - Authenticated API calls use bearer-token authorization
 - OTP verification and password reset are part of the onboarding/recovery path
@@ -123,7 +145,7 @@ I solved these challenges by structuring the app as a unified platform with clea
 
 I integrated the security-sensitive client responsibilities directly into the product flows, especially around auth, token persistence, password recovery, and notification registration. I also separated sensitive upload and account actions into dedicated services so those interactions remained explicit and easier to control.
 
-### 11. Scalability & Maintainability
+## 11. Scalability & Maintainability
 
 - Clear service/domain boundaries make it easier to extend booking, profile, or provider modules independently
 - GetX bindings and service initialization provide consistent dependency wiring
@@ -133,38 +155,37 @@ I integrated the security-sensitive client responsibilities directly into the pr
 
 I designed the codebase to scale functionally without forcing a rewrite each time a new business area was added. The maintainability strategy centered on service segmentation, typed models, reusable UI elements, and a stable initialization pattern so new domains could be added with controlled impact.
 
-### 12. Screenshots
+## 12. External Links
 
-Recommended demo path for recruiters:
+See [External Links](./links.md)
 
-- Splash -> login/signup -> home discovery -> package details -> booking flow -> bookings overview -> chat -> profile
-- Provider demo: login as office/operator -> dashboard -> create/manage package/hotel/bus -> statistics/bookings
+## 13. Demo
 
-Suggested screenshots:
+See full demo videos: [View Demo](./demo/README.md)
 
-- Home/discovery
-- Package details
-- Booking form
-- Booking overview
-- Chat
-- Provider dashboard or management screen
+## 14. Screenshots
 
-These screens demonstrate the areas I owned most directly: onboarding, discovery, booking execution, account management, communication tooling, and provider-side operations inside a single production app.
+### Home
+<img src="screenshots/home.jpg" width="600"/>
 
-## Demo Availability
+### Package Details
+<img src="screenshots/package-details.jpg" width="600"/>
 
-The application is currently live on the App Store and Google Play.
+### Booking Form
+<img src="screenshots/booking-form.jpg" width="600"/>
 
-However, backend services are not publicly accessible at this time, which may result in login or data-loading limitations during direct usage.
+### Payment
+<img src="screenshots/payment-1.png" width="600"/>
 
-To compensate for this, the following materials are provided:
+### Chat
+<img src="screenshots/chat.jpg" width="600"/>
 
-- Screenshots covering key user flows
-- Detailed technical documentation explaining system behavior
-- Architecture and feature breakdown
+### Bookings
+<img src="screenshots/bookings.jpg" width="600"/>
 
-A full walkthrough or technical discussion can be provided upon request.
 
-### 13. Disclaimer
+For a full view of all application screens including dark mode and calling states, please visit the [Screenshots Gallery](./screenshots/README.md).
 
-This documentation is based strictly on the `ios` branch and treats UmrahGo as its own production app. It intentionally excludes source code, secrets, and branch mixing. Public-facing copy should be paired with real store screenshots and sanitized release metadata before publishing.
+## 15. Disclaimer
+
+> This project’s source code is private due to client confidentiality. Detailed code walkthrough can be provided upon request.

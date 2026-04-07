@@ -1,8 +1,26 @@
-## Mataf Technical Case Study
+# Mataf App
 
-Branch analyzed: `mataf`
+## Table of Contents
 
-### 1. Project Overview
+- [Project Overview](#1-project-overview)
+- [My Role](#my-role)
+- [Key Features](#2-key-features)
+- [Tech Stack](#3-tech-stack)
+- [Architecture](#4-architecture)
+- [Core Functional Flows](#5-core-functional-flows)
+- [State Management](#6-state-management)
+- [API Integration](#7-api-integration)
+- [Performance Considerations](#8-performance-considerations)
+- [Challenges & Solutions](#9-challenges--solutions)
+- [Security Considerations](#10-security-considerations)
+- [Scalability & Maintainability](#11-scalability--maintainability)
+- [External Links](#12-external-links)
+- [Demo](#13-demo)
+- [Screenshots](#14-screenshots)
+- [Disclaimer](#15-disclaimer)
+
+
+## 1. Project Overview
 
 Mataf is a production Flutter mobile application derived from the same core platform as UmrahGo, but positioned as a distinct product with separate branding, backend domain, package identifiers, and a materially redesigned consumer experience. It focuses on a more curated package-discovery journey while preserving the underlying booking, authentication, profile, chat, and provider-support foundations.
 
@@ -16,7 +34,7 @@ I designed and implemented the full UI/UX redesign on top of the existing platfo
 
 I also preserved and re-integrated the core business system inside the redesigned product: authentication, OTP verification, booking creation, coupon handling, payment continuation, profile flows, notifications, chat, office-related package enrichment, and app update handling. My ownership covered both the product redesign and the engineering continuity required to keep Mataf production-ready as its own app.
 
-### 2. Key Features
+## 2. Key Features
 
 - Email/password, OTP, password reset, and Google sign-in authentication
 - Curated home experience with offers, most requested packages, and featured packages
@@ -28,7 +46,7 @@ I also preserved and re-integrated the core business system inside the redesigne
 
 I implemented these features within a redesigned product surface, ensuring Mataf felt like a separate app rather than a themed fork. The engineering work combined UI/UX redesign with preserved business continuity across booking, auth, and support flows.
 
-### 3. Tech Stack
+## 3. Tech Stack
 
 - Flutter with Dart
 - GetX for state, routing, bindings, and dependency management
@@ -42,7 +60,7 @@ I implemented these features within a redesigned product surface, ensuring Mataf
 
 I kept the shared core technology strategy where it served reuse, and I extended the product-specific UI layer where Mataf needed its own experience. This allowed me to deliver a separate production app without duplicating the entire platform stack.
 
-### 4. Architecture
+## 4. Architecture
 
 Mataf keeps the same broad layered foundation, but the branch shows stronger product shaping in the presentation layer:
 
@@ -54,7 +72,7 @@ Mataf keeps the same broad layered foundation, but the branch shows stronger pro
 
 I designed this branch as a product-specific evolution of the shared platform, not just a visual variation. This is important technically: Mataf is not only a theme fork. It is a branch-level product variation with its own API host, app identifiers, navigation behavior, and content model emphasis. I implemented that separation directly through branch-specific API/domain configuration, package IDs, version-check targets, route behavior, and redesigned presentation modules.
 
-### 5. Core Functional Flows
+## 5. Core Functional Flows
 
 - Authentication flow: login/signup -> OTP handling -> profile/bootstrap -> notification token registration -> main app entry
 - Discovery flow: browse offer carousel -> browse most requested/featured sections -> open section-specific list -> inspect package details
@@ -65,7 +83,7 @@ I designed this branch as a product-specific evolution of the shared platform, n
 
 I implemented these flows so the redesigned discovery and branded UI remained fully connected to the underlying booking system. My role here included preserving business-critical flows while restructuring how users discover, evaluate, and move through packages inside Mataf.
 
-### 6. State Management
+## 6. State Management
 
 GetX remains the state backbone, but this branch uses it in a more product-specific way:
 
@@ -76,7 +94,7 @@ GetX remains the state backbone, but this branch uses it in a more product-speci
 
 I implemented this state structure to support the redesigned consumer journey. The goal was not only to manage data loading, but also to express product intent: curated entry points, content-specific loading states, offline retry behavior, and tighter coordination between navigation and discovery sections.
 
-### 7. API Integration
+## 7. API Integration
 
 Mataf is connected to its own production backend domain and app identity, separate from UmrahGo:
 
@@ -88,7 +106,7 @@ Mataf is connected to its own production backend domain and app identity, separa
 
 I implemented this integration through explicit environment and product separation. I repointed auth, package, offer, office-detail, booking, payment, and update-related mobile logic to Mataf infrastructure while keeping the app behavior coherent. From an engineering perspective, the key decision was clean environment separation while reusing a stable platform core.
 
-### 8. Performance Considerations
+## 8. Performance Considerations
 
 - Cached images are used aggressively in the redesigned discovery experience
 - Skeleton/shimmer loading improves perceived performance during package/offer fetches
@@ -98,7 +116,7 @@ I implemented this integration through explicit environment and product separati
 
 I made these changes as product and engineering decisions together. I optimized Mataf around perceived speed, clearer content hierarchy, and reduced cognitive load, especially on the landing experience where curated offers and premium package presentation drive first impressions.
 
-### 9. Challenges & Solutions
+## 9. Challenges & Solutions
 
 - Shared-core, separate-product challenge: solved by branch isolation, separate backend domain, and separate app IDs
 - Redesign without rewriting the platform: solved by reusing services/models while rebuilding the presentation layer around offers and curated sections
@@ -108,7 +126,7 @@ I made these changes as product and engineering decisions together. I optimized 
 
 I solved the hardest Mataf challenge by treating it as product engineering, not simple re-skinning. I preserved platform reuse where it created leverage, and I rebuilt the user-facing experience where the product needed separation. That made Mataf a true branch-based product evolution and an independently deployable app, not just a derivative UI layer.
 
-### 10. Security Considerations
+## 10. Security Considerations
 
 - Authenticated requests rely on bearer-token handling and persisted session state
 - OTP and password recovery remain part of the access-control model
@@ -119,7 +137,7 @@ I solved the hardest Mataf challenge by treating it as product engineering, not 
 
 I integrated these security-relevant responsibilities into the app’s main flows and maintained them while separating Mataf from UmrahGo at the product level. That ensured the redesign did not compromise identity, session, notification, or recovery behavior.
 
-### 11. Scalability & Maintainability
+## 11. Scalability & Maintainability
 
 - Shared-core architecture keeps platform cost under control while allowing brand/product divergence
 - Branch-specific presentation logic means Mataf can continue evolving independently without destabilizing UmrahGo
@@ -129,25 +147,37 @@ I integrated these security-relevant responsibilities into the app’s main flow
 
 I designed Mataf’s maintainability around controlled product divergence. The shared foundation reduces duplication, while branch-specific presentation, environment configuration, and feature shaping let Mataf continue evolving independently. This is the core engineering strategy that made separate deployment practical.
 
-### 12. Screenshots / Demo Notes
+## 12. External Links
 
-Recommended demo path for recruiters:
+See [External Links](./links.md)
 
-- Splash -> login/signup -> curated home -> offers carousel -> package details -> booking -> notifications/chat -> profile
-- Secondary demo: office-related package context from the package detail page
+## 13. Demo
 
-Suggested screenshots:
+See full demo videos: [View Demo](./demo/README.md)
 
-- Home with offers/featured sections
-- Offer card or curated discovery section
-- Package details
-- Booking flow
-- Profile or chat screen
+## 14. Screenshots
 
-These screens show my strongest engineering ownership in Mataf: full UI/UX redesign, product-level separation, curated discovery architecture, and preservation of the production booking system inside a newly branded standalone app.
+### Home
+<img src="screenshots/home.jpeg" width="600"/>
 
-### 13. Disclaimer
+### Package Details
+<img src="screenshots/package-details.jpeg" width="600"/>
 
-This documentation is based strictly on the `mataf` branch and treats Mataf as an independent production app. It intentionally avoids source code, secrets, and cross-branch assumptions. For public GitHub usage, pair this write-up with Mataf-specific screenshots and sanitized release metadata.
+### Office Dashboard
+<img src="screenshots/office-dashboard.jpeg" width="600"/>
 
-If you want, I can do one more pass to make both case studies read like polished portfolio documentation, with stronger recruiter-friendly phrasing and cleaner markdown formatting for direct GitHub publishing.
+### Chat
+<img src="screenshots/chat.jpeg" width="600"/>
+
+### Bookings
+<img src="screenshots/bookings.jpeg" width="600"/>
+
+### Profile
+<img src="screenshots/profile.jpeg" width="600"/>
+
+
+For a full view of all application screens including dark mode and calling states, please visit the [Screenshots Gallery](./screenshots/README.md).
+
+## 15. Disclaimer
+
+> This project’s source code is private due to client confidentiality. Detailed code walkthrough can be provided upon request.

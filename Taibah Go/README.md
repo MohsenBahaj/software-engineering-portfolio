@@ -1,153 +1,213 @@
-## Mataf Technical Case Study
+# Taibah Go App
 
-Branch analyzed: `mataf`
+## Table of Contents
 
-### 1. Project Overview
+- [Project Overview](#1-project-overview)
+- [My Role](#2-my-role)
+- [Key Features](#3-key-features)
+- [Tech Stack](#4-tech-stack)
+- [Architecture](#5-architecture)
+- [Core Functional Flows](#6-core-functional-flows)
+- [State Management](#7-state-management)
+- [API Integration](#8-api-integration)
+- [Performance Considerations](#9-performance-considerations)
+- [Challenges & Solutions](#10-challenges--solutions)
+- [Security Considerations](#11-security-considerations)
+- [Scalability & Maintainability](#12-scalability--maintainability)
+- [External Links](#13-external-links)
+- [Demo](#14-demo)
+- [Screenshots](#15-screenshots)
+- [Disclaimer](#16-disclaimer)
 
-Mataf is a production Flutter mobile application derived from the same core platform as UmrahGo, but positioned as a distinct product with separate branding, backend domain, package identifiers, and a materially redesigned consumer experience. It focuses on a more curated package-discovery journey while preserving the underlying booking, authentication, profile, chat, and provider-support foundations.
 
-I owned the product-level mobile engineering required to turn the shared platform base into a separate deployable app. That included branch-specific backend separation, app identity separation, full UI/UX redesign of the consumer experience, updated navigation and discovery architecture, continued booking/payment support, and independent production delivery as a standalone app on iOS and Android.
+# 1. Project Overview
 
-## My Role
+**Taibah Go** is a Flutter mobile application for browsing tourism destinations, reviewing trip options, and moving through a booking-oriented user journey in Arabic and English. The `main` branch implements the current production UI foundation: splash onboarding, account entry screens, a home discovery experience, trip listing and filtering, booking input, and booking detail review.
 
-I led the engineering work that transformed the shared platform into Mataf as a separate product. I implemented the branch-based product evolution from UmrahGo into a distinct application with its own backend domain, package identifiers, branding, navigation behavior, release configuration, and store-facing deployment identity.
+The implementation is intentionally lightweight and highly focused on mobile UX consistency. It uses a compact presentation-first architecture, local asset-driven content, and GetX for app structure, localization, navigation, and reactive UI updates.
 
-I designed and implemented the full UI/UX redesign on top of the existing platform foundation. That included restructuring the home experience around curated offers, most requested packages, featured content, redesigned package cards, shimmer-based loading states, updated bottom navigation behavior, and a more product-driven discovery flow.
+# 2. My Role
 
-I also preserved and re-integrated the core business system inside the redesigned product: authentication, OTP verification, booking creation, coupon handling, payment continuation, profile flows, notifications, chat, office-related package enrichment, and app update handling. My ownership covered both the product redesign and the engineering continuity required to keep Mataf production-ready as its own app.
+I designed the application architecture around a simple, production-practical separation of concerns: `view`, `view-model`, `utils`, and `constants`. I implemented the mobile user experience end to end, including splash flow, onboarding screens, home discovery, trip listing, booking input, booking review, and bottom-tab navigation.
 
-### 2. Key Features
+I integrated GetX as the app’s core framework for navigation, localization, and reactive state handling. I implemented bilingual support for Arabic and English, including persisted locale selection and direction-aware layouts so the app works naturally in RTL and LTR contexts.
 
-- Email/password, OTP, password reset, and Google sign-in authentication
-- Curated home experience with offers, most requested packages, and featured packages
-- Package detail flow enriched with related office packages and office offers
-- Package booking with passenger forms, accommodation selection, coupon support, and hosted payment continuation
-- Notifications, chat, profile management, documents, and language handling
-- Provider/office package and hotel support still present in the branch
-- Change-password support added in the auth layer
+I implemented the reusable UI layer, including shared form components, card-based trip and booking presentation, and a centralized color system to keep the visual language consistent across screens. I also implemented the current data flow using local in-memory models and asset-backed content so the production branch remains stable and predictable.
 
-I implemented these features within a redesigned product surface, ensuring Mataf felt like a separate app rather than a themed fork. The engineering work combined UI/UX redesign with preserved business continuity across booking, auth, and support flows.
+I defined the API integration boundary by keeping this branch free of unfinished network coupling. In this production implementation, trip and booking data are rendered from local/static sources rather than a live backend, which allowed me to stabilize UX, navigation, and localization before introducing remote dependencies.
 
-### 3. Tech Stack
+I implemented state management with GetX observables where reactivity is needed, especially for tab switching and booking date/time selection, while keeping the rest of the UI stateless to reduce complexity. I also applied performance-conscious decisions such as scoped reactivity, builder-based rendering, and lightweight local persistence for user locale preferences.
 
-- Flutter with Dart
-- GetX for state, routing, bindings, and dependency management
-- Dio and `http` for networking
-- Firebase Core, Firebase Messaging, Firebase Auth, Google Sign-In
-- Google Maps Flutter for location-linked package/hotel/profile experiences
-- WebView for payment continuation
-- Shared Preferences for persisted auth/account state
-- Cached network image and shimmer-based loading states
-- New Version Plus for store-update prompting
+# 3. Key Features
 
-I kept the shared core technology strategy where it served reuse, and I extended the product-specific UI layer where Mataf needed its own experience. This allowed me to deliver a separate production app without duplicating the entire platform stack.
+- Splash screen with timed transition into the onboarding flow
+- Bilingual localization for Arabic and English
+- Persisted language preference using local storage
+- RTL/LTR-aware layout handling across major screens
+- Sign-up and login entry screens
+- Home dashboard with destination grid
+- Trip listing page with category-based filtering
+- Booking form with date and time selection
+- Booking summary/details screen for reviewing submitted information
+- Bottom navigation between home discovery and booking history
+- Reusable cards and text field components for consistent UI composition
 
-### 4. Architecture
+# 4. Tech Stack
 
-Mataf keeps the same broad layered foundation, but the branch shows stronger product shaping in the presentation layer:
+- **Framework:** Flutter
+- **Language:** Dart
+- **State management / routing / localization:** GetX
+- **Local persistence:** `shared_preferences`
+- **Typography:** `google_fonts`
+- **Platform support in repo:** Android, iOS, Web, Windows, macOS, Linux
+- **Splash generation:** `flutter_native_splash`
 
-- Shared service/model/core architecture remains intact
-- Consumer home flow is redesigned into dedicated sections and specialized controllers
-- Offer handling is elevated into first-class discovery logic
-- Package detail flow is expanded to include same-office package context and office offers
-- Navigation and bottom-bar presentation are updated for a more premium branded UX
+# 5. Architecture
 
-I designed this branch as a product-specific evolution of the shared platform, not just a visual variation. This is important technically: Mataf is not only a theme fork. It is a branch-level product variation with its own API host, app identifiers, navigation behavior, and content model emphasis. I implemented that separation directly through branch-specific API/domain configuration, package IDs, version-check targets, route behavior, and redesigned presentation modules.
+The app follows a lightweight presentation-oriented structure:
 
-### 5. Core Functional Flows
+- `lib/view`: screen-level UI and reusable screen widgets
+- `lib/view-model`: controller logic, currently used for home tab state
+- `lib/utils/local`: local persistence utilities such as locale storage
+- `lib/utils/translation`: translation maps and localization definitions
+- `lib/constants`: shared visual constants such as the color palette
 
-- Authentication flow: login/signup -> OTP handling -> profile/bootstrap -> notification token registration -> main app entry
-- Discovery flow: browse offer carousel -> browse most requested/featured sections -> open section-specific list -> inspect package details
-- Package detail flow: load package by ID -> fetch same-office related packages -> fetch office offers -> continue to booking
-- Booking flow: collect pilgrim/passenger details -> validate coupon -> choose cash or electronic payment -> create booking -> confirmation/payment continuation
-- Payment flow: create hosted payment session against Mataf backend -> open checkout WebView -> poll payment result -> finalize booking state
-- Support flow: notifications, chat home, direct chat, profile/document management
+This is not a heavily layered enterprise architecture; it is a deliberate, small-team-friendly structure optimized for clarity and fast iteration. UI composition stays close to the screens, while shared behavior such as localization and tab control is extracted into dedicated utility and controller layers.
 
-I implemented these flows so the redesigned discovery and branded UI remained fully connected to the underlying booking system. My role here included preserving business-critical flows while restructuring how users discover, evaluate, and move through packages inside Mataf.
+# 6. Core Functional Flows
 
-### 6. State Management
+## Onboarding Flow
 
-GetX remains the state backbone, but this branch uses it in a more product-specific way:
+The app starts in a splash screen, initializes Flutter bindings, restores the saved locale, and launches the app with the correct language context. After the splash delay, the user is routed into the account creation screen.
 
-- Dedicated controllers for home sections and detail enrichment
-- Reactive loading/error states for offers, featured content, most-requested content, and offline handling
-- Shared preferences retain auth and account metadata
-- Main navigation state coordinates section-aware discovery rather than only simple tab switching
+## Authentication Entry Flow
 
-I implemented this state structure to support the redesigned consumer journey. The goal was not only to manage data loading, but also to express product intent: curated entry points, content-specific loading states, offline retry behavior, and tighter coordination between navigation and discovery sections.
+The user can move between sign-up and login screens. These screens currently serve as the access layer for the experience and route the user into the main app shell.
 
-### 7. API Integration
+## Discovery Flow
 
-Mataf is connected to its own production backend domain and app identity, separate from UmrahGo:
+From the home tab, the user sees a destination grid backed by local image assets. Selecting a destination opens the trips page.
 
-- Distinct API base URL for auth, packages, offers, office details, bookings, and payments
-- Offers endpoint is directly integrated into the home experience
-- Public office packages and office offers are fetched to enrich package detail pages
-- Booking and payment flows are preserved but repointed to Mataf infrastructure
-- Change-password support exists as a dedicated authenticated API action
+## Trip Browsing Flow
 
-I implemented this integration through explicit environment and product separation. I repointed auth, package, offer, office-detail, booking, payment, and update-related mobile logic to Mataf infrastructure while keeping the app behavior coherent. From an engineering perspective, the key decision was clean environment separation while reusing a stable platform core.
+The trips page presents a list of trip cards and allows filtering by category through choice chips. Selecting a trip routes the user into the booking screen.
 
-### 8. Performance Considerations
+## Booking Flow
 
-- Cached images are used aggressively in the redesigned discovery experience
-- Skeleton/shimmer loading improves perceived performance during package/offer fetches
-- The home screen is split into focused sections instead of one overloaded listing
-- Refresh and offline retry patterns are built into the consumer home experience
-- PageView-based offer presentation reduces initial content clutter while keeping curated discovery prominent
+The booking screen captures date/time, hotel address, contact details, and number of travelers. The bottom summary section presents booking-related pricing information and a confirmation CTA.
 
-I made these changes as product and engineering decisions together. I optimized Mataf around perceived speed, clearer content hierarchy, and reduced cognitive load, especially on the landing experience where curated offers and premium package presentation drive first impressions.
+## Booking Review Flow
 
-### 9. Challenges & Solutions
+The bookings tab displays prior booking cards. Opening one leads to a read-only booking details view that summarizes key reservation fields.
 
-- Shared-core, separate-product challenge: solved by branch isolation, separate backend domain, and separate app IDs
-- Redesign without rewriting the platform: solved by reusing services/models while rebuilding the presentation layer around offers and curated sections
-- Discovery clarity: solved by replacing a flatter browsing experience with offers, most-requested, and featured entry points
-- Detail-page depth: solved by joining package details with related office packages and office offers
-- Brand differentiation: solved through UI/navigation restructuring rather than only asset swaps
+# 7. State Management
 
-I solved the hardest Mataf challenge by treating it as product engineering, not simple re-skinning. I preserved platform reuse where it created leverage, and I rebuilt the user-facing experience where the product needed separation. That made Mataf a true branch-based product evolution and an independently deployable app, not just a derivative UI layer.
+State management is intentionally lean.
 
-### 10. Security Considerations
+- GetX `RxInt` is used for bottom-tab selection in the home shell
+- GetX `Rx<DateTime>` is used for reactive booking date/time updates
+- Locale changes are handled through GetX localization updates
+- Most screens remain stateless and render from local input/state passed into widgets
 
-- Authenticated requests rely on bearer-token handling and persisted session state
-- OTP and password recovery remain part of the access-control model
-- FCM registration is tied to authenticated flow
-- Change-password support strengthens account-management coverage
-- Public recruiter documentation should avoid secrets, keystore details, tokens, and any environment-sensitive material
-- As with any production mobile client, debug-only network relaxations should not be described as production security posture
+This approach keeps reactive scope narrow. Only the UI segments that truly need to rebuild are wrapped in `Obx`, which avoids unnecessary widget tree churn.
 
-I integrated these security-relevant responsibilities into the app’s main flows and maintained them while separating Mataf from UmrahGo at the product level. That ensured the redesign did not compromise identity, session, notification, or recovery behavior.
+# 8. API Integration
 
-### 11. Scalability & Maintainability
+The `main` branch does **not** include a live backend API client, network service layer, remote repository abstraction, or authenticated server communication. Data shown in trip listings and booking history is currently local and static.
 
-- Shared-core architecture keeps platform cost under control while allowing brand/product divergence
-- Branch-specific presentation logic means Mataf can continue evolving independently without destabilizing UmrahGo
-- Offer modeling and related-package enrichment make content-driven growth easier
-- Service isolation still supports future backend expansion without large controller rewrites
-- This branch demonstrates a scalable product-family strategy: one strong core, multiple deployable branded apps
+From an engineering perspective, this means the production branch is presently optimized around:
 
-I designed Mataf’s maintainability around controlled product divergence. The shared foundation reduces duplication, while branch-specific presentation, environment configuration, and feature shaping let Mataf continue evolving independently. This is the core engineering strategy that made separate deployment practical.
+- UX validation
+- Localization correctness
+- Navigation stability
+- Reusable component structure
+- Controlled data rendering without backend variability
 
-### 12. Screenshots / Demo Notes
+The integration surface is straightforward to extend later because screens are already separated from utility and controller concerns, but no real HTTP integration is implemented in this branch.
 
-Recommended demo path for recruiters:
+# 9. Performance Considerations
 
-- Splash -> login/signup -> curated home -> offers carousel -> package details -> booking -> notifications/chat -> profile
-- Secondary demo: office-related package context from the package detail page
+- Builder-based rendering is used for destination grids
+- Reactive rebuilds are limited to small UI areas with `Obx`
+- Asset-based local content eliminates network latency in the current implementation
+- Reusable components reduce duplicated widget complexity
+- Stateless widgets are used extensively to keep rebuild behavior simple
+- Locale preference is restored once at startup, preventing repeated configuration work during runtime
 
-Suggested screenshots:
+Given the current scope, the app’s performance profile is lightweight and predictable.
 
-- Home with offers/featured sections
-- Offer card or curated discovery section
-- Package details
-- Booking flow
-- Profile or chat screen
+# 10. Challenges & Solutions
 
-These screens show my strongest engineering ownership in Mataf: full UI/UX redesign, product-level separation, curated discovery architecture, and preservation of the production booking system inside a newly branded standalone app.
+## Bilingual Mobile UX
 
-### 13. Disclaimer
+A major challenge was supporting both Arabic and English cleanly. I solved this by combining GetX translations, persisted locale preferences, and direction-aware layout handling so the app can switch between RTL and LTR usage patterns with minimal duplication.
 
-This documentation is based strictly on the `mataf` branch and treats Mataf as an independent production app. It intentionally avoids source code, secrets, and cross-branch assumptions. For public GitHub usage, pair this write-up with Mataf-specific screenshots and sanitized release metadata.
+## Keeping the UI Consistent Across Flows
 
-If you want, I can do one more pass to make both case studies read like polished portfolio documentation, with stronger recruiter-friendly phrasing and cleaner markdown formatting for direct GitHub publishing.
+The app spans onboarding, discovery, booking, and booking review. I solved visual inconsistency risk by centralizing colors and reusing shared widgets such as the custom text field and card-based layouts.
+
+## Avoiding Overengineering
+
+For the current product stage, adding a full backend/data layer would have increased delivery risk. I solved this by stabilizing the user-facing flows first with local/static data, which keeps the branch production-safe while preserving a clean path for future API integration.
+
+# 11. Security Considerations
+
+- No secrets or API keys are embedded in the analyzed branch
+- No live authentication or token storage flow is implemented in this branch
+- `shared_preferences` is used only for locale persistence, which is low risk
+- The absence of backend connectivity reduces exposure to transport/auth vulnerabilities in the current implementation
+- If backend auth is introduced later, sensitive credentials and tokens should move to secure storage rather than standard preferences
+
+# 12. Scalability & Maintainability
+
+The project is maintainable because the codebase is small, legible, and organized by responsibility. The current structure supports incremental growth without requiring an immediate rewrite.
+
+Scalability-ready aspects include:
+
+- clear separation between screens, controller logic, localization, and constants
+- reusable UI primitives for forms and cards
+- a centralized localization system
+- a single navigation/state framework across the app
+
+Areas that would naturally evolve next for scale:
+
+- repository/service layer for remote APIs
+- form validation and submission orchestration
+- typed domain models for bookings and destinations
+- secure authentication/session handling
+- automated widget and integration testing
+
+## 13. External Links
+
+See [External Links](./links.md)
+
+## 14. Demo
+
+See full demo videos: [View Demo](./demo/README.md)
+
+## 15. Screenshots
+
+### Home
+<img src="screenshots/home.jpg" width="600"/>
+
+### Available Trips
+<img src="screenshots/trips.jpg" width="600"/>
+
+### Places
+<img src="screenshots/places.jpg" width="600"/>
+
+### Login
+<img src="screenshots/login.jpg" width="600"/>
+
+### Trips History
+<img src="screenshots/trips-history.jpg" width="600"/>
+
+### Settings
+<img src="screenshots/settings.jpg" width="600"/>
+
+
+For a full view of all application screens including dark mode and calling states, please visit the [Screenshots Gallery](./screenshots/README.md).
+
+## 16. Disclaimer
+
+> This project’s source code is private due to client confidentiality. Detailed code walkthrough can be provided upon request.

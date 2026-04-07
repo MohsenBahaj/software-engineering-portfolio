@@ -1,153 +1,202 @@
-## Mataf Technical Case Study
+# Neuronhat App
 
-Branch analyzed: `mataf`
+## Table of Contents
 
-### 1. Project Overview
+- [Project Overview](#1-project-overview)
+- [My Role](#my-role)
+- [Key Features](#2-key-features)
+- [Tech Stack](#3-tech-stack)
+- [Architecture](#4-architecture)
+- [Core Functional Flows](#5-core-functional-flows)
+- [State Management](#6-state-management)
+- [API Integration](#7-api-integration)
+- [Performance Considerations](#8-performance-considerations)
+- [Challenges & Solutions](#9-challenges--solutions)
+- [Security Considerations](#10-security-considerations)
+- [Scalability & Maintainability](#11-scalability--maintainability)
+- [External Links](#12-external-links)
+- [Demo](#13-demo)
+- [Screenshots](#14-screenshots)
+- [Disclaimer](#15-disclaimer)
 
-Mataf is a production Flutter mobile application derived from the same core platform as UmrahGo, but positioned as a distinct product with separate branding, backend domain, package identifiers, and a materially redesigned consumer experience. It focuses on a more curated package-discovery journey while preserving the underlying booking, authentication, profile, chat, and provider-support foundations.
 
-I owned the product-level mobile engineering required to turn the shared platform base into a separate deployable app. That included branch-specific backend separation, app identity separation, full UI/UX redesign of the consumer experience, updated navigation and discovery architecture, continued booking/payment support, and independent production delivery as a standalone app on iOS and Android.
+## 1. Project Overview
+
+Neuronhat is a production Flutter mobile application for internal organizational collaboration. On this branch, the product centers on employee and company-side communication, including personal chats, department chats, group chats, task coordination, file and image sharing, unread-state tracking, push notifications, and calling support. The branch is clearly in a debugging and stabilization phase, with heavy emphasis on making chat behavior reliable under real production conditions.
 
 ## My Role
 
-I led the engineering work that transformed the shared platform into Mataf as a separate product. I implemented the branch-based product evolution from UmrahGo into a distinct application with its own backend domain, package identifiers, branding, navigation behavior, release configuration, and store-facing deployment identity.
+I investigated the disappearing-message issue as a production debugging problem, not a cosmetic defect. I identified where UI state, local persistence, API responses, and socket events were falling out of sync. I fixed the conversation identity flow for newly started chats, redesigned how message state is reconciled after optimistic sends, and tightened the fetch/sync lifecycle so messages remain visible instead of being dropped during reloads. I also improved stability around unread-state updates, socket-driven refreshes, and local cache consistency so the chat system behaves predictably across app sessions and network transitions.
 
-I designed and implemented the full UI/UX redesign on top of the existing platform foundation. That included restructuring the home experience around curated offers, most requested packages, featured content, redesigned package cards, shimmer-based loading states, updated bottom navigation behavior, and a more product-driven discovery flow.
+## 2. Key Features
 
-I also preserved and re-integrated the core business system inside the redesigned product: authentication, OTP verification, booking creation, coupon handling, payment continuation, profile flows, notifications, chat, office-related package enrichment, and app update handling. My ownership covered both the product redesign and the engineering continuity required to keep Mataf production-ready as its own app.
+- Personal, group, and department chat flows
+- Employee-side and company-side chat experiences
+- Optimistic message sending for faster perceived responsiveness
+- File and image attachments with local download/cache handling
+- Reply, edit, and delete message workflows
+- Unread message counters and read-state synchronization
+- Push notification support with Firebase Messaging
+- Voice/video calling integration through Zego
+- Task assignment flows connected to conversation context
+- Localization and translated chat UI
 
-### 2. Key Features
+## 3. Tech Stack
 
-- Email/password, OTP, password reset, and Google sign-in authentication
-- Curated home experience with offers, most requested packages, and featured packages
-- Package detail flow enriched with related office packages and office offers
-- Package booking with passenger forms, accommodation selection, coupon support, and hosted payment continuation
-- Notifications, chat, profile management, documents, and language handling
-- Provider/office package and hotel support still present in the branch
-- Change-password support added in the auth layer
+- Flutter with Dart 3.6
+- GetX for routing, dependency injection, and reactive state
+- Dio for REST API communication
+- Socket.IO client for real-time message events
+- Sqflite for local persistence
+- Flutter Secure Storage for token and session storage
+- Firebase Core and Firebase Messaging for notifications
+- Zego UIKit for calling features
+- SharedPreferences for lightweight local preferences
+- Media/file utilities including image picker, cropper, file picker, cached image loading, and open-file support
 
-I implemented these features within a redesigned product surface, ensuring Mataf felt like a separate app rather than a themed fork. The engineering work combined UI/UX redesign with preserved business continuity across booking, auth, and support flows.
+## 4. Architecture
 
-### 3. Tech Stack
+The branch uses a layered Flutter structure:
 
-- Flutter with Dart
-- GetX for state, routing, bindings, and dependency management
-- Dio and `http` for networking
-- Firebase Core, Firebase Messaging, Firebase Auth, Google Sign-In
-- Google Maps Flutter for location-linked package/hotel/profile experiences
-- WebView for payment continuation
-- Shared Preferences for persisted auth/account state
-- Cached network image and shimmer-based loading states
-- New Version Plus for store-update prompting
+- `views/` for UI screens and widgets
+- `viewmodels/` for GetX controllers and presentation logic
+- `data/repository/` for API-facing repository classes
+- `data/local_data/` for SQLite access and cache helpers
+- `data/models/` for chat, conversation, task, and entity models
+- `bindings/` for route-scoped dependency injection
+- `auth/`, `services/`, and `socket.dart` for cross-cutting runtime services
 
-I kept the shared core technology strategy where it served reuse, and I extended the product-specific UI layer where Mataf needed its own experience. This allowed me to deliver a separate production app without duplicating the entire platform stack.
+This is effectively a hybrid offline-first and real-time architecture: the UI reads from reactive controller state, controllers coordinate local SQLite and network fetches, and socket events incrementally patch the live conversation state.
 
-### 4. Architecture
+## 5. Core Functional Flows
 
-Mataf keeps the same broad layered foundation, but the branch shows stronger product shaping in the presentation layer:
+- User authenticates, session data is loaded from secure storage, and the app routes to the correct dashboard.
+- Conversations and cached messages load locally first, then silently sync from the backend.
+- Opening a chat resolves its entity context and conversation identity, then hydrates the message timeline.
+- Sending a message updates UI state immediately, then reconciles with the API response and local database.
+- Socket events push new messages and read events into the same state pipeline used by the fetch layer.
+- Task creation can inherit conversation context so operational work remains tied to the chat thread.
 
-- Shared service/model/core architecture remains intact
-- Consumer home flow is redesigned into dedicated sections and specialized controllers
-- Offer handling is elevated into first-class discovery logic
-- Package detail flow is expanded to include same-office package context and office offers
-- Navigation and bottom-bar presentation are updated for a more premium branded UX
+## 6. State Management
 
-I designed this branch as a product-specific evolution of the shared platform, not just a visual variation. This is important technically: Mataf is not only a theme fork. It is a branch-level product variation with its own API host, app identifiers, navigation behavior, and content model emphasis. I implemented that separation directly through branch-specific API/domain configuration, package IDs, version-check targets, route behavior, and redesigned presentation modules.
+State is centralized with GetX controllers, especially the chat controllers. The important pattern on this branch is that chat state is no longer treated as a single fragile screen-local list. Instead, the app maintains:
 
-### 5. Core Functional Flows
+- Reactive message maps keyed by chat ID
+- Conversation caches keyed by conversation ID
+- Temporary-to-real conversation ID mappings for newly created chats
+- Active conversation tracking for read-state behavior
+- Separate unread-count state synchronized with both API and local cache
 
-- Authentication flow: login/signup -> OTP handling -> profile/bootstrap -> notification token registration -> main app entry
-- Discovery flow: browse offer carousel -> browse most requested/featured sections -> open section-specific list -> inspect package details
-- Package detail flow: load package by ID -> fetch same-office related packages -> fetch office offers -> continue to booking
-- Booking flow: collect pilgrim/passenger details -> validate coupon -> choose cash or electronic payment -> create booking -> confirmation/payment continuation
-- Payment flow: create hosted payment session against Mataf backend -> open checkout WebView -> poll payment result -> finalize booking state
-- Support flow: notifications, chat home, direct chat, profile/document management
+This materially reduces race conditions between screen rebuilds, first-message sends, and background sync.
 
-I implemented these flows so the redesigned discovery and branded UI remained fully connected to the underlying booking system. My role here included preserving business-critical flows while restructuring how users discover, evaluate, and move through packages inside Mataf.
+## 7. API Integration
 
-### 6. State Management
+The branch integrates REST endpoints for:
 
-GetX remains the state backbone, but this branch uses it in a more product-specific way:
+- Fetching conversations
+- Fetching messages by conversation
+- Starting a new conversation with a first message
+- Sending messages into an existing conversation
+- Editing and deleting messages
+- Fetching unread message counts
 
-- Dedicated controllers for home sections and detail enrichment
-- Reactive loading/error states for offers, featured content, most-requested content, and offline handling
-- Shared preferences retain auth and account metadata
-- Main navigation state coordinates section-aware discovery rather than only simple tab switching
+Real-time updates are handled through Socket.IO listeners for new messages, message-read events, user presence, and task events. The key engineering improvement here is that API responses and socket payloads are both normalized into the same local state pipeline instead of competing with each other.
 
-I implemented this state structure to support the redesigned consumer journey. The goal was not only to manage data loading, but also to express product intent: curated entry points, content-specific loading states, offline retry behavior, and tighter coordination between navigation and discovery sections.
+## 8. Performance Considerations
 
-### 7. API Integration
+- Local-first loading reduces perceived chat latency
+- Silent sync is debounced to avoid excessive refresh churn
+- Message sync writes are batched into SQLite transactions
+- Conversations and messages are cached in memory per conversation
+- Media downloads are deferred and persisted locally
+- Cached network images reduce repeated image fetches
+- The stabilized state flow avoids unnecessary UI clears and rehydration glitches
 
-Mataf is connected to its own production backend domain and app identity, separate from UmrahGo:
+## 9. Challenges & Solutions
 
-- Distinct API base URL for auth, packages, offers, office details, bookings, and payments
-- Offers endpoint is directly integrated into the home experience
-- Public office packages and office offers are fetched to enrich package detail pages
-- Booking and payment flows are preserved but repointed to Mataf infrastructure
-- Change-password support exists as a dedicated authenticated API action
+- Multi-source message state: solved by reconciling UI, SQLite, REST, and socket updates into shared controller state
+- New conversation lifecycle: solved by tracking temporary conversation IDs until the server returns the real ID
+- Message reliability during refresh: solved by removing logic that cleared or ignored valid message state during fetch
+- Attachment consistency: solved by syncing metadata and downloading media into local persistent storage
+- Read-state correctness: solved by combining active-conversation tracking with socket and unread-count synchronization
 
-I implemented this integration through explicit environment and product separation. I repointed auth, package, offer, office-detail, booking, payment, and update-related mobile logic to Mataf infrastructure while keeping the app behavior coherent. From an engineering perspective, the key decision was clean environment separation while reusing a stable platform core.
+## Debugging Case Study: Message Disappearance Issue
 
-### 8. Performance Considerations
+**Problem description**  
+Messages were disappearing in the employee chat flow, especially around newly started conversations and synchronization boundaries.
 
-- Cached images are used aggressively in the redesigned discovery experience
-- Skeleton/shimmer loading improves perceived performance during package/offer fetches
-- The home screen is split into focused sections instead of one overloaded listing
-- Refresh and offline retry patterns are built into the consumer home experience
-- PageView-based offer presentation reduces initial content clutter while keeping curated discovery prominent
+**Observed behavior**  
+A message could appear immediately after send, then vanish after fetch/sync, or fail to remain attached to the conversation the user was actively viewing. This was most dangerous on first-message flows, where the app had to transition from a temporary local conversation identity to the real server conversation ID.
 
-I made these changes as product and engineering decisions together. I optimized Mataf around perceived speed, clearer content hierarchy, and reduced cognitive load, especially on the landing experience where curated offers and premium package presentation drive first impressions.
+**Root cause analysis**  
+I identified a state reconciliation problem across three layers:
 
-### 9. Challenges & Solutions
+- The UI was using temporary conversation IDs before the backend returned the real conversation ID.
+- The fetch/state layer previously contained logic that could skip or clear valid message state instead of consistently repopulating it.
+- Optimistic messages, local cache updates, and server-confirmed messages were not always being reconciled under the same final conversation identity.
 
-- Shared-core, separate-product challenge: solved by branch isolation, separate backend domain, and separate app IDs
-- Redesign without rewriting the platform: solved by reusing services/models while rebuilding the presentation layer around offers and curated sections
-- Discovery clarity: solved by replacing a flatter browsing experience with offers, most-requested, and featured entry points
-- Detail-page depth: solved by joining package details with related office packages and office offers
-- Brand differentiation: solved through UI/navigation restructuring rather than only asset swaps
+That combination created the illusion that a message had disappeared when, in reality, it had either been orphaned under the wrong conversation ID or overwritten during refresh. The key branch evidence is in the conversation-ID remapping and fetch-state cleanup inside [chat_state_controller.dart](/E:/Desktop/flutter/neuronhat/lib/viewmodels/chat/chat_state_controller.dart#L124), [chat_controller.dart](/E:/Desktop/flutter/neuronhat/lib/viewmodels/chat/chat_controller.dart#L48), [fetch_chat_controller.dart](/E:/Desktop/flutter/neuronhat/lib/viewmodels/chat/fetch_chat_controller.dart#L237), and [chat_page.dart](/E:/Desktop/flutter/neuronhat/lib/views/chat/employee/chat_page.dart#L105).
 
-I solved the hardest Mataf challenge by treating it as product engineering, not simple re-skinning. I preserved platform reuse where it created leverage, and I rebuilt the user-facing experience where the product needed separation. That made Mataf a true branch-based product evolution and an independently deployable app, not just a derivative UI layer.
+**Technical fix applied**  
+I fixed the issue by making conversation identity explicit and durable:
 
-### 10. Security Considerations
+- I introduced entity-scoped temporary conversation mapping so each chat target keeps a stable local identity until the API returns the real one.
+- I updated the send pipeline to distinguish between starting a conversation and sending into an existing one.
+- I migrated in-memory messages from temporary conversation IDs to the real server conversation ID as soon as the API responded.
+- I removed the problematic fetch behavior that was clearing/skipping valid message state.
+- I ensured socket-delivered messages and API-fetched messages both flow through the same message update path.
 
-- Authenticated requests rely on bearer-token handling and persisted session state
-- OTP and password recovery remain part of the access-control model
-- FCM registration is tied to authenticated flow
-- Change-password support strengthens account-management coverage
-- Public recruiter documentation should avoid secrets, keystore details, tokens, and any environment-sensitive material
-- As with any production mobile client, debug-only network relaxations should not be described as production security posture
+**Preventive improvements**
 
-I integrated these security-relevant responsibilities into the app’s main flows and maintained them while separating Mataf from UmrahGo at the product level. That ensured the redesign did not compromise identity, session, notification, or recovery behavior.
+- Active conversation tracking now supports correct read-state handling
+- Local SQLite upserts preserve message continuity across app refreshes
+- Silent sync and socket events now reinforce the same message timeline instead of competing with it
+- Reply, edit, delete, unread-count, and media-download metadata are persisted in the local store for stronger state recovery
+- The chat schema now carries richer lifecycle fields, improving auditability and state reconstruction in future debugging work
 
-### 11. Scalability & Maintainability
+## 10. Security Considerations
 
-- Shared-core architecture keeps platform cost under control while allowing brand/product divergence
-- Branch-specific presentation logic means Mataf can continue evolving independently without destabilizing UmrahGo
-- Offer modeling and related-package enrichment make content-driven growth easier
-- Service isolation still supports future backend expansion without large controller rewrites
-- This branch demonstrates a scalable product-family strategy: one strong core, multiple deployable branded apps
+- Auth tokens and session identifiers are stored with Flutter Secure Storage, not plain local preferences
+- Token expiration is checked during startup and invalid sessions are cleared
+- Authenticated API calls use bearer-token headers
+- Logout tears down socket state to avoid stale real-time sessions
+- Sensitive session identifiers such as active employee and organization IDs are stored and accessed centrally through the auth service
 
-I designed Mataf’s maintainability around controlled product divergence. The shared foundation reduces duplication, while branch-specific presentation, environment configuration, and feature shaping let Mataf continue evolving independently. This is the core engineering strategy that made separate deployment practical.
+## 11. Scalability & Maintainability
 
-### 12. Screenshots / Demo Notes
+This branch improves maintainability by separating responsibilities cleanly across UI, controller, repository, and local persistence layers. The message-disappearance fix is especially important from a scalability perspective because it replaces brittle screen-specific behavior with a reusable identity-reconciliation pattern. That makes the chat system more resilient as additional features such as richer attachments, more socket events, and heavier conversation volumes are introduced.
 
-Recommended demo path for recruiters:
+## 12. External Links
 
-- Splash -> login/signup -> curated home -> offers carousel -> package details -> booking -> notifications/chat -> profile
-- Secondary demo: office-related package context from the package detail page
+See [External Links](./links.md)
 
-Suggested screenshots:
+## 13. Demo
 
-- Home with offers/featured sections
-- Offer card or curated discovery section
-- Package details
-- Booking flow
-- Profile or chat screen
+See full demo videos: [View Demo](./demo/README.md)
 
-These screens show my strongest engineering ownership in Mataf: full UI/UX redesign, product-level separation, curated discovery architecture, and preservation of the production booking system inside a newly branded standalone app.
+## 14. Screenshots
 
-### 13. Disclaimer
+### Dashboard
+<img src="screenshots/dashboard.png" width="600"/>
 
-This documentation is based strictly on the `mataf` branch and treats Mataf as an independent production app. It intentionally avoids source code, secrets, and cross-branch assumptions. For public GitHub usage, pair this write-up with Mataf-specific screenshots and sanitized release metadata.
+### Chat
+<img src="screenshots/chat.png" width="600"/>
 
-If you want, I can do one more pass to make both case studies read like polished portfolio documentation, with stronger recruiter-friendly phrasing and cleaner markdown formatting for direct GitHub publishing.
+### Tasks (Admin View)
+<img src="screenshots/tasks-admin.png" width="600"/>
+
+### Video Meeting
+<img src="screenshots/video-meeting.png" width="600"/>
+
+### Profile
+<img src="screenshots/profile.png" width="600"/>
+
+### Employee Details
+<img src="screenshots/employee-details.png" width="600"/>
+
+
+For a full view of all application screens including dark mode and calling states, please visit the [Screenshots Gallery](./screenshots/README.md).
+
+## 15. Disclaimer
+
+> This project’s source code is private due to client confidentiality. Detailed code walkthrough can be provided upon request.
