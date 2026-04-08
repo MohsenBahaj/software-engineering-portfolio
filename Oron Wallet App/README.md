@@ -195,9 +195,15 @@ A clear next step for long-term scale would be stronger test coverage and more f
 </div>
 
 
-# 14. Disclaimer
+## Source Code
 
-This documentation reflects the **current codebase only** and is intentionally limited to what is implemented in this repository. It avoids exposing source code, secrets, credentials, or sensitive operational details.
+This project is part of a real production system.
 
-Contribution ownership is described honestly: I was primarily responsible for the **send/receive flows, swap flow, swap page design/UI, and dashboard UI enhancements**, while **login, settings, and some authentication/account-management areas were implemented by other contributors**.
+The source code is not publicly available due to client ownership and confidentiality constraints.
+
+This case study focuses on:
+- System architecture
+- Key features
+- Engineering decisions
+
 

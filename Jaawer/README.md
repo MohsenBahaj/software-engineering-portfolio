@@ -17,7 +17,7 @@
 - [External Links](#13-external-links)
 - [Demo](#14-demo)
 - [Screenshots](#15-screenshots)
-- [Disclaimer](#16-disclaimer)
+- [Source Code](#source-code)
 
 
 # 1. Project Overview
@@ -315,6 +315,14 @@ See full demo videos: [View Demo](./demo/README.md)
 
 For a full view of all application screens including dark mode and calling states, please visit the [Screenshots Gallery](./screenshots/README.md).
 
-## 16. Disclaimer
+## Source Code
 
-> This project’s source code is private due to client confidentiality. Detailed code walkthrough can be provided upon request.
+This project is part of a real production system.
+
+The source code is not publicly available due to client ownership and confidentiality constraints.
+
+This case study focuses on:
+- System architecture
+- Key features
+- Engineering decisions
+
