@@ -185,25 +185,40 @@ See [External Links](./links.md)
 
 See full demo videos: [View Demo](./demo/README.md)
 
-## 15. Screenshots
+## 📸 Screenshots
 
-### Home
-<img src="screenshots/home.jpg" width="600"/>
-
-### Available Trips
-<img src="screenshots/trips.jpg" width="600"/>
-
-### Places
-<img src="screenshots/places.jpg" width="600"/>
-
-### Login
-<img src="screenshots/login.jpg" width="600"/>
-
-### Trips History
-<img src="screenshots/trips-history.jpg" width="600"/>
-
-### Settings
-<img src="screenshots/settings.jpg" width="600"/>
+<div align="center">
+  <table style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="screenshots/home.jpg" width="90%" alt="Home"/><br/>
+        <b>Home</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/trips.jpg" width="90%" alt="Available Trips"/><br/>
+        <b>Available Trips</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/places.jpg" width="90%" alt="Places"/><br/>
+        <b>Places</b>
+      </td>
+    </tr>
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="screenshots/login.jpg" width="90%" alt="Login"/><br/>
+        <b>Login</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/trips-history.jpg" width="90%" alt="Trips History"/><br/>
+        <b>Trips History</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/settings.jpg" width="90%" alt="Settings"/><br/>
+        <b>Settings</b>
+      </td>
+    </tr>
+  </table>
+</div>
 
 
 For a full view of all application screens including dark mode and calling states, please visit the [Screenshots Gallery](./screenshots/README.md).

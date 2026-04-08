@@ -2,34 +2,48 @@
 
 This gallery provides a comprehensive visual walkthrough of the Oron Wallet application, highlighting the core dashboard, asset management, and transactional flows.
 
-## Dashboard & Account Overview
+## 📸 Screenshots
 
-### Wallet Dashboard – Account Overview & Token Balances
-<img src="./Wallet Dashboard – Account Overview & Token Balances.png" width="800"/>
-
-### Wallet Dashboard – Token Portfolio (Detailed View)
-<img src="./Wallet Dashboard – Token Portfolio (Detailed View).png" width="800"/>
-
-## Asset Management & Swap Flow
-
-### Swap Screen – Token Selection & Amount Input
-<img src="./Swap Screen – Token Selection & Amount Input.png" width="800"/>
-
-### Swap Quote Screen – Price, Fees & Confirmation
-<img src="./Swap Quote Screen – Price, Fees & Confirmation.png" width="800"/>
-
-### Token Selection Modal – Search & Asset List
-<img src="./Token Selection Modal – Search & Asset List.png" width="800"/>
-
-### Network Selection Modal – Blockchain Switching
-<img src="./Network Selection Modal – Blockchain Switching.png" width="800"/>
-
-## Security & Settings
-
-### Settings Screen – Security & Preferences
-<img src="./Settings Screen – Security & Preferences.png" width="800"/>
-
-## Promotional Overview
-
-### Project Poster
-<img src="./poster.png" width="1000"/>
+<div align="center">
+  <table style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="./Wallet Dashboard – Account Overview & Token Balances.png" width="90%" alt="Wallet Dashboard"/><br/>
+        <b>Wallet Dashboard</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="./Wallet Dashboard – Token Portfolio (Detailed View).png" width="90%" alt="Token Portfolio"/><br/>
+        <b>Token Portfolio</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="./Swap Screen – Token Selection & Amount Input.png" width="90%" alt="Swap Screen"/><br/>
+        <b>Swap Screen</b>
+      </td>
+    </tr>
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="./Swap Quote Screen – Price, Fees & Confirmation.png" width="90%" alt="Swap Quote"/><br/>
+        <b>Swap Quote</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="./Token Selection Modal – Search & Asset List.png" width="90%" alt="Token Selection"/><br/>
+        <b>Token Selection</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="./Network Selection Modal – Blockchain Switching.png" width="90%" alt="Network Selection"/><br/>
+        <b>Network Selection</b>
+      </td>
+    </tr>
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="./Settings Screen – Security & Preferences.png" width="90%" alt="Settings Screen"/><br/>
+        <b>Settings Screen</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="./poster.png" width="90%" alt="Project Poster"/><br/>
+        <b>Project Poster</b>
+      </td>
+      <td width="33.33%"></td>
+    </tr>
+  </table>
+</div>

@@ -2,47 +2,62 @@
 
 This gallery provides a visual overview of the application's features and user interface.
 
-## Dashboard & Navigation
+## 📸 Screenshots
 
-### Dashboard Page
-<img src="./dashboard.png" width="600"/>
-
-### Navigation Drawer
-<img src="./navigation-drawer.png" width="600"/>
-
-## Task Management
-
-### Tasks (Admin View)
-<img src="./tasks-admin.png" width="600"/>
-
-### Task Details
-<img src="./task-details.png" width="600"/>
-
-## Chat & Collaboration
-
-### Chat Conversation
-<img src="./chat.png" width="600"/>
-
-### Chat with Tasks Integration
-<img src="./chat-tasks.png" width="600"/>
-
-### Video Meeting
-<img src="./video-meeting.png" width="600"/>
-
-## Company & Employees
-
-### Company Details
-<img src="./company-details.png" width="600"/>
-
-### Employee Details
-<img src="./employee-details.png" width="600"/>
-
-## Profile
-
-### Profile Page
-<img src="./profile.png" width="600"/>
-
-## Store Presence
-
-### App Store Screenshot
-<img src="./app-store.jpeg" width="600"/>
+<div align="center">
+  <table style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="./dashboard.png" width="90%" alt="Dashboard"/><br/>
+        <b>Dashboard</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="./navigation-drawer.png" width="90%" alt="Navigation Drawer"/><br/>
+        <b>Navigation Drawer</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="./tasks-admin.png" width="90%" alt="Tasks (Admin View)"/><br/>
+        <b>Tasks (Admin View)</b>
+      </td>
+    </tr>
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="./task-details.png" width="90%" alt="Task Details"/><br/>
+        <b>Task Details</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="./chat.png" width="90%" alt="Chat Conversation"/><br/>
+        <b>Chat Conversation</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="./chat-tasks.png" width="90%" alt="Chat with Tasks"/><br/>
+        <b>Chat with Tasks</b>
+      </td>
+    </tr>
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="./video-meeting.png" width="90%" alt="Video Meeting"/><br/>
+        <b>Video Meeting</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="./company-details.png" width="90%" alt="Company Details"/><br/>
+        <b>Company Details</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="./employee-details.png" width="90%" alt="Employee Details"/><br/>
+        <b>Employee Details</b>
+      </td>
+    </tr>
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="./profile.png" width="90%" alt="Profile Page"/><br/>
+        <b>Profile Page</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="./app-store.jpeg" width="90%" alt="App Store"/><br/>
+        <b>App Store</b>
+      </td>
+      <td width="33.33%"></td>
+    </tr>
+  </table>
+</div>

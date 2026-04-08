@@ -155,25 +155,40 @@ See [External Links](./links.md)
 
 See full demo videos: [View Demo](./demo/README.md)
 
-## 14. Screenshots
+## 📸 Screenshots
 
-### Home
-<img src="screenshots/home.jpeg" width="600"/>
-
-### Package Details
-<img src="screenshots/package-details.jpeg" width="600"/>
-
-### Office Dashboard
-<img src="screenshots/office-dashboard.jpeg" width="600"/>
-
-### Chat
-<img src="screenshots/chat.jpeg" width="600"/>
-
-### Bookings
-<img src="screenshots/bookings.jpeg" width="600"/>
-
-### Profile
-<img src="screenshots/profile.jpeg" width="600"/>
+<div align="center">
+  <table style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="screenshots/home.jpeg" width="90%" alt="Home"/><br/>
+        <b>Home</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/package-details.jpeg" width="90%" alt="Package Details"/><br/>
+        <b>Package Details</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/office-dashboard.jpeg" width="90%" alt="Office Dashboard"/><br/>
+        <b>Office Dashboard</b>
+      </td>
+    </tr>
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="screenshots/chat.jpeg" width="90%" alt="Chat"/><br/>
+        <b>Chat</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/bookings.jpeg" width="90%" alt="Bookings"/><br/>
+        <b>Bookings</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/profile.jpeg" width="90%" alt="Profile"/><br/>
+        <b>Profile</b>
+      </td>
+    </tr>
+  </table>
+</div>
 
 
 For a full view of all application screens including dark mode and calling states, please visit the [Screenshots Gallery](./screenshots/README.md).

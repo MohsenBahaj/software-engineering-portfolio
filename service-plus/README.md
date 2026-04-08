@@ -507,22 +507,37 @@ See [External Links](./links.md)
 ## 13. Demo
 See full demo videos: [View Demo](./demo/README.md)
 
-## 14. Screenshots
+## 📸 Screenshots
 
-### Home
-<img src="screenshots/Home.jpeg" width="600"/>
-
-### Service Details
-<img src="screenshots/service%20request%20creation.jpeg" width="600"/>
-
-### Chat
-<img src="screenshots/Chat%20conversation%20list.jpeg" width="600"/>
-
-### Requests
-<img src="screenshots/My%20requests%20screen.jpeg" width="600"/>
-
-### Profile
-<img src="screenshots/Profile%20settings%20screen.jpeg" width="600"/>
+<div align="center">
+  <table style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="screenshots/Home.jpeg" width="90%" alt="Home"/><br/>
+        <b>Home</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/service%20request%20creation.jpeg" width="90%" alt="Service Details"/><br/>
+        <b>Service Details</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/Chat%20conversation%20list.jpeg" width="90%" alt="Chat"/><br/>
+        <b>Chat</b>
+      </td>
+    </tr>
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="screenshots/My%20requests%20screen.jpeg" width="90%" alt="Requests"/><br/>
+        <b>Requests</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/Profile%20settings%20screen.jpeg" width="90%" alt="Profile"/><br/>
+        <b>Profile</b>
+      </td>
+      <td width="33.33%"></td>
+    </tr>
+  </table>
+</div>
 
 
 For a full view of all application screens including dark mode and calling states, please visit the [Screenshots Gallery](./screenshots/README.md).

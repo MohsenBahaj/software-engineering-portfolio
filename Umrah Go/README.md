@@ -163,25 +163,40 @@ See [External Links](./links.md)
 
 See full demo videos: [View Demo](./demo/README.md)
 
-## 14. Screenshots
+## 📸 Screenshots
 
-### Home
-<img src="screenshots/home.jpg" width="600"/>
-
-### Package Details
-<img src="screenshots/package-details.jpg" width="600"/>
-
-### Booking Form
-<img src="screenshots/booking-form.jpg" width="600"/>
-
-### Payment
-<img src="screenshots/payment-1.png" width="600"/>
-
-### Chat
-<img src="screenshots/chat.jpg" width="600"/>
-
-### Bookings
-<img src="screenshots/bookings.jpg" width="600"/>
+<div align="center">
+  <table style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="screenshots/home.jpg" width="90%" alt="Home"/><br/>
+        <b>Home</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/package-details.jpg" width="90%" alt="Package Details"/><br/>
+        <b>Package Details</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/booking-form.jpg" width="90%" alt="Booking Form"/><br/>
+        <b>Booking Form</b>
+      </td>
+    </tr>
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="screenshots/payment-1.png" width="90%" alt="Payment"/><br/>
+        <b>Payment</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/chat.jpg" width="90%" alt="Chat"/><br/>
+        <b>Chat</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/bookings.jpg" width="90%" alt="Bookings"/><br/>
+        <b>Bookings</b>
+      </td>
+    </tr>
+  </table>
+</div>
 
 
 For a full view of all application screens including dark mode and calling states, please visit the [Screenshots Gallery](./screenshots/README.md).

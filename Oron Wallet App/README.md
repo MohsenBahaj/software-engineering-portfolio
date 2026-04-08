@@ -165,21 +165,34 @@ From my contribution area, maintainability came from:
 
 A clear next step for long-term scale would be stronger test coverage and more formalized abstractions for chain-specific transaction execution.
 
-# 13. Screenshots
+## 📸 Screenshots
 
-### Wallet Dashboard
-<img src="screenshots/Wallet Dashboard – Account Overview & Token Balances.png" width="600"/>
-
-### Token Swap Flow
-<img src="screenshots/Swap Screen – Token Selection & Amount Input.png" width="600"/>
-
-### Swap Confirmation
-<img src="screenshots/Swap Quote Screen – Price, Fees & Confirmation.png" width="600"/>
-
-### Asset Selection
-<img src="screenshots/Token Selection Modal – Search & Asset List.png" width="600"/>
-
-For a full view of all application screens including dark mode and calling states, please visit the [Screenshots Gallery](./screenshots/README.md).
+<div align="center">
+  <table style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="screenshots/Wallet Dashboard – Account Overview & Token Balances.png" width="90%" alt="Wallet Dashboard"/><br/>
+        <b>Wallet Dashboard</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/Swap Screen – Token Selection & Amount Input.png" width="90%" alt="Token Swap Flow"/><br/>
+        <b>Token Swap Flow</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/Swap Quote Screen – Price, Fees & Confirmation.png" width="90%" alt="Swap Confirmation"/><br/>
+        <b>Swap Confirmation</b>
+      </td>
+    </tr>
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="screenshots/Token Selection Modal – Search & Asset List.png" width="90%" alt="Asset Selection"/><br/>
+        <b>Asset Selection</b>
+      </td>
+      <td width="33.33%"></td>
+      <td width="33.33%"></td>
+    </tr>
+  </table>
+</div>
 
 
 # 14. Disclaimer

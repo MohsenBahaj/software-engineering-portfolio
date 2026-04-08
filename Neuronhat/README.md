@@ -174,25 +174,40 @@ See [External Links](./links.md)
 
 See full demo videos: [View Demo](./demo/README.md)
 
-## 14. Screenshots
+## 📸 Screenshots
 
-### Dashboard
-<img src="screenshots/dashboard.png" width="600"/>
-
-### Chat
-<img src="screenshots/chat.png" width="600"/>
-
-### Tasks (Admin View)
-<img src="screenshots/tasks-admin.png" width="600"/>
-
-### Video Meeting
-<img src="screenshots/video-meeting.png" width="600"/>
-
-### Profile
-<img src="screenshots/profile.png" width="600"/>
-
-### Employee Details
-<img src="screenshots/employee-details.png" width="600"/>
+<div align="center">
+  <table style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="screenshots/dashboard.png" width="90%" alt="Dashboard"/><br/>
+        <b>Dashboard</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/chat.png" width="90%" alt="Chat"/><br/>
+        <b>Chat</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/tasks-admin.png" width="90%" alt="Tasks (Admin View)"/><br/>
+        <b>Tasks (Admin View)</b>
+      </td>
+    </tr>
+    <tr>
+      <td width="33.33%" align="center">
+        <img src="screenshots/video-meeting.png" width="90%" alt="Video Meeting"/><br/>
+        <b>Video Meeting</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/profile.png" width="90%" alt="Profile"/><br/>
+        <b>Profile</b>
+      </td>
+      <td width="33.33%" align="center">
+        <img src="screenshots/employee-details.png" width="90%" alt="Employee Details"/><br/>
+        <b>Employee Details</b>
+      </td>
+    </tr>
+  </table>
+</div>
 
 
 For a full view of all application screens including dark mode and calling states, please visit the [Screenshots Gallery](./screenshots/README.md).
